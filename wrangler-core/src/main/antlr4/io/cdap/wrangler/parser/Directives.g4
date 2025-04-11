@@ -52,19 +52,22 @@ statements
 directive
  : command
   (   codeblock
-    | identifier
-    | macro
-    | text
-    | number
-    | bool
-    | column
-    | colList
-    | numberList
-    | boolList
-    | stringList
-    | numberRanges
-    | properties
-  )*?
+  | identifier
+  | macro
+  | text
+  | number
+  | bool
+  | column
+  | colList
+  | numberList
+  | boolList
+  | stringList
+  | numberRanges
+  | byteSize               // NEW
+  | timeDuration           // NEW
+  | properties
+)*?
+
   ;
 
 ifStatement
@@ -257,6 +260,23 @@ Number
  : Int ('.' Digit*)?
  ;
 
+BYTE_SIZE
+ : Int ('.' Digit*)? BYTE_UNIT
+ ;
+
+fragment BYTE_UNIT
+ : 'B' | 'KB' | 'MB' | 'GB' | 'TB'
+ ;
+
+TIME_DURATION
+ : Int ('.' Digit*)? TIME_UNIT
+ ;
+
+fragment TIME_UNIT
+ : 'ns' | 'ms' | 's' | 'm' | 'h'
+ ;
+
+
 Identifier
  : [a-zA-Z_\-] [a-zA-Z_0-9\-]*
  ;
@@ -311,3 +331,11 @@ fragment Int
 fragment Digit
  : [0-9]
  ;
+ byteSize
+ : BYTE_SIZE
+ ;
+
+timeDuration
+ : TIME_DURATION
+ ;
+
