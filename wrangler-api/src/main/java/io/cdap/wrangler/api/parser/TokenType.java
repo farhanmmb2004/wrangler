@@ -152,5 +152,17 @@ public enum TokenType implements Serializable {
    * Represents the enumerated type for the object of type {@code String} with restrictions
    * on characters that can be present in a string.
    */
-  IDENTIFIER
+  IDENTIFIER,
+   /**
+   * Represents a token value that encodes a byte size with units (e.g., 10KB, 2MB, 1.5GB).
+   * Used to parse values that represent storage sizes in Wrangler directives.
+   */
+  BYTE_SIZE,
+
+  /**
+   * Represents a token value that encodes a time duration with units (e.g., 150ms, 2.5s, 1h).
+   * Used to parse values that represent elapsed time or durations in Wrangler directives.
+   */
+  TIME_DURATION,
+
 }
