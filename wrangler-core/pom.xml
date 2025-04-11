@@ -56,6 +56,7 @@
       <artifactId>protobuf-java</artifactId>
       <version>${protobuf.version}</version>
     </dependency>
+
     <dependency>
       <groupId>io.cdap.cdap</groupId>
       <artifactId>cdap-api</artifactId>

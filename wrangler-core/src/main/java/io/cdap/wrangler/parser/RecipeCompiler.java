@@ -16,6 +16,9 @@
 
 package io.cdap.wrangler.parser;
 
+import io.cdap.wrangler.api.parser.Token;
+import io.cdap.wrangler.api.parser.ByteSize;
+import io.cdap.wrangler.api.parser.TimeDuration;
 import io.cdap.wrangler.api.CompileException;
 import io.cdap.wrangler.api.CompileStatus;
 import io.cdap.wrangler.api.Compiler;
@@ -34,6 +37,14 @@ import java.nio.file.Path;
  * Class description here.
  */
 public final class RecipeCompiler implements Compiler {
+
+  public Token visitByteSize(DirectivesParser.ByteSizeContext ctx) {
+   return new ByteSize(ctx.getText());
+  }
+  
+  public Token visitTimeDuration(DirectivesParser.TimeDurationContext ctx) {
+   return new TimeDuration(ctx.getText());
+  }
 
   @Override
   public CompileStatus compile(String recipe) throws CompileException {

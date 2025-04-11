@@ -16,6 +16,8 @@
 
 package io.cdap.wrangler.parser;
 
+import io.cdap.wrangler.api.parser.ByteSize;
+import io.cdap.wrangler.api.parser.TimeDuration;
 import io.cdap.wrangler.api.LazyNumber;
 import io.cdap.wrangler.api.RecipeSymbol;
 import io.cdap.wrangler.api.SourceInfo;
@@ -215,6 +217,28 @@ public final class RecipeVisitor extends DirectivesBaseVisitor<RecipeSymbol.Buil
   public RecipeSymbol.Builder visitNumber(DirectivesParser.NumberContext ctx) {
     LazyNumber number = new LazyNumber(ctx.Number().getText());
     builder.addToken(new Numeric(number));
+    return builder;
+  }
+  
+    /**
+   * A Directive can consist of byte-size values like 10KB, 1.5MB, or 2GB.
+   * This visitor method extracts the value and creates a token of type {@code ByteSize},
+   * which converts it into bytes and stores it in canonical form.
+   */
+  @Override
+  public RecipeSymbol.Builder visitByteSize(DirectivesParser.ByteSizeContext ctx) {
+    builder.addToken(new ByteSize(ctx.getText()));
+    return builder;
+  }
+
+  /**
+   * A Directive can consist of time duration values like 500ms, 2s, or 1h.
+   * This visitor method extracts the value and creates a token of type {@code TimeDuration},
+   * which converts it into milliseconds and stores it in canonical form.
+   */
+  @Override
+  public RecipeSymbol.Builder visitTimeDuration(DirectivesParser.TimeDurationContext ctx) {
+    builder.addToken(new TimeDuration(ctx.getText()));
     return builder;
   }
 
